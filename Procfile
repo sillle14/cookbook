@@ -1,1 +1,1 @@
-web: bin/cookbook
+web: bin/soups-up

@@ -1,0 +1,16 @@
+{{ define "title"}}<title>Home</title>{{ end }}
+{{ define "content" }}
+<h1>
+	{{ .Title }}
+</h1>
+
+<ul>
+{{range .Recipes}}
+	<li><a href="{{ .Id | formatObjId}}">{{ .Name}}</a></li>
+{{end}}
+</ul>
+{{ end }}
+
+
+
+
