@@ -2,11 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
+	"os"
 	"time"
 
-	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,9 +15,11 @@ var Client *mongo.Client
 var RecipesCollection *mongo.Collection
 
 func ConnectDB() {
-	str := viper.GetString("db_uri")
-	fmt.Println(str)
-	client, err := mongo.NewClient(options.Client().ApplyURI(viper.GetString("db_uri")))
+	db_uri := os.Getenv("DB_URI")
+	if db_uri == "" {
+		db_uri = "mongodb://localhost:27017/soups-up"
+	}
+	client, err := mongo.NewClient(options.Client().ApplyURI(db_uri))
 	if err != nil {
 		log.Fatal(err)
 	}

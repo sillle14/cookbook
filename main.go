@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -35,7 +34,6 @@ func createMyRender() multitemplate.Renderer {
 func main() {
 
 	// config
-	viper.SetDefault("db_uri", "mongodb://localhost:27017/soups-up")
 	ConnectDB()
 
 	router := gin.Default()
