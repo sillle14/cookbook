@@ -1,10 +1,8 @@
 package main
 
 import (
-	"html/template"
 	"net/http"
 
-	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -21,22 +19,7 @@ import (
 // - Home button
 // - content -> instructions
 // - name -> something else
-
-func formatObjId(objId primitive.ObjectID) string {
-	return objId.Hex()
-}
-
-func createMyRender() multitemplate.Renderer {
-	r := multitemplate.NewRenderer()
-	funcMap := template.FuncMap{
-		"formatObjId": formatObjId,
-	}
-	// TODO: Loop through as there are more templates?
-	r.AddFromFilesFuncs("index", funcMap, "templates/base.html.tmpl", "templates/index.html.tmpl")
-	r.AddFromFilesFuncs("recipe", funcMap, "templates/base.html.tmpl", "templates/recipe.html.tmpl")
-	r.AddFromFilesFuncs("form", funcMap, "templates/base.html.tmpl", "templates/form.html.tmpl")
-	return r
-}
+// - need css asset versioning to cache bust
 
 func main() {
 
@@ -45,7 +28,7 @@ func main() {
 
 	router := gin.Default()
 
-	router.HTMLRender = createMyRender()
+	router.HTMLRender = CreateMyRender()
 
 	router.Static("/assets", "./assets")
 	router.GET("/", func(ctx *gin.Context) {

@@ -2,8 +2,13 @@
 <head>
     {{ template "title" . }}
     <link rel="stylesheet" type="text/css" href="/assets/main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+    <div class="header">
+        <a class="home" href="/">Soup's Up!</a>
+        <a class="about" href="/about">About</a>
+    </div>
     {{ template "content" . }}
 </body>
 </html>

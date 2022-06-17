@@ -1,13 +1,13 @@
 {{ define "title"}}<title>{{ .Recipe.Name}}</title>{{ end }}
 {{ define "content" }}
-<html>
-	<h1>
-		{{ .Recipe.Name }}
-	</h1>
-	<p>
-		{{ .Recipe.Content }}
-	</p>
-	<a href="/{{ .Recipe.Id | formatObjId}}/edit" class="button">Edit</a>
-</html>
+<h1>
+	{{ .Recipe.Name }}
+</h1>
+<p>
+	<ol>
+	{{ .Recipe.Instructions | formatInstructions}}
+	</ol>
+</p>
+<a href="/{{ .Recipe.Id | formatObjId}}/edit" class="button">Edit</a>
 {{ end }}
 

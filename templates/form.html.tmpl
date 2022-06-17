@@ -14,8 +14,8 @@
 		<input type="text" name="name" id="name" value="{{ .Recipe.Name }}" required>
 	</div>
 	<div class="form-example">
-		<label for="content">Content: </label>
-		<textarea name="content" id="content" required>{{ .Recipe.Content }}</textarea>
+		<label for="instructions">Instructions: </label>
+		<textarea name="instructions" id="instructions" cols="60" rows="20" required>{{ .Recipe.Instructions }}</textarea>
 	</div>
 	<div class="form-example">
 		<input type="submit" value="Submit">

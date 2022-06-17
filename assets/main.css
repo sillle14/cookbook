@@ -1,5 +1,22 @@
 h1 {
-    color: tomato
+    color: purple
+}
+
+div.header {
+    background-color: aquamarine;
+    height: 8vh;
+    margin: -8px;
+    position: sticky;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a.home {
+    font-size: 30px;
+    text-decoration: none;
+    color: initial;
 }
 
 a.button {
