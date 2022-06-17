@@ -1,0 +1,29 @@
+{{ define "title"}}<title>{{ .Title }}</title>{{ end }}
+{{ define "content" }}
+<h1>
+	{{ .Title }}
+</h1>
+
+{{ if .Edit }}
+<form action="/recipes/{{ .Recipe.Id | formatObjId }}" method="post" class="form-example">
+{{ else }}
+<form action="/recipes" method="post" class="form-example">
+{{ end }}
+	<div class="form-example">
+		<label for="name">Name: </label>
+		<input type="text" name="name" id="name" value="{{ .Recipe.Name }}" required>
+	</div>
+	<div class="form-example">
+		<label for="content">Content: </label>
+		<textarea name="content" id="content" required>{{ .Recipe.Content }}</textarea>
+	</div>
+	<div class="form-example">
+		<input type="submit" value="Submit">
+	</div>
+</form>
+
+{{ end }}
+
+
+
+

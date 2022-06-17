@@ -4,6 +4,10 @@
 	<h1>
 		{{ .Recipe.Name }}
 	</h1>
+	<p>
+		{{ .Recipe.Content }}
+	</p>
+	<a href="/{{ .Recipe.Id | formatObjId}}/edit" class="button">Edit</a>
 </html>
 {{ end }}
 
