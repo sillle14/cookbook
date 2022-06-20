@@ -10,12 +10,37 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+var lb *regexp.Regexp = regexp.MustCompile(`[\r\n]+`)
+var ingRegexp *regexp.Regexp = regexp.MustCompile(`(?P<first>\d+\s\w+)\s\+\s(?P<second>\d+\s\w+)(\sof)?\s(?P<ing>\w+)`)
+
 func formatObjId(objId primitive.ObjectID) string {
 	return objId.Hex()
 }
 
-func formatInstructions(raw string) template.HTML {
-	lb := regexp.MustCompile("[\r\n]+")
+func boldIngredients(recipe Recipe) string {
+	ingredients := lb.Split(recipe.Ingredients, -1)
+	instructions := recipe.Instructions
+	for _, ingredient := range ingredients {
+		if strings.Contains(ingredient, "+") {
+			match := ingRegexp.FindStringSubmatch(ingredient)
+			result := make(map[string]string)
+			for i, name := range ingRegexp.SubexpNames() {
+				if i != 0 && name != "" {
+					result[name] = match[i]
+				}
+			}
+			for _, idx := range []string{"first", "second"} {
+				parsedIng := result[idx] + " " + result["ing"]
+				instructions = strings.ReplaceAll(instructions, parsedIng, "<b>"+parsedIng+"</b>")
+			}
+		} else {
+			instructions = strings.ReplaceAll(instructions, ingredient, "<b>"+ingredient+"</b>")
+		}
+	}
+	return instructions
+}
+
+func formatList(raw string) template.HTML {
 	steps := lb.Split(raw, -1)
 	ret := ""
 	for _, step := range steps {
@@ -27,8 +52,9 @@ func formatInstructions(raw string) template.HTML {
 func CreateMyRender() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 	funcMap := template.FuncMap{
-		"formatObjId":        formatObjId,
-		"formatInstructions": formatInstructions,
+		"formatObjId":     formatObjId,
+		"formatList":      formatList,
+		"boldIngredients": boldIngredients,
 	}
 
 	layouts, err := filepath.Glob("./templates/*.html.tmpl")

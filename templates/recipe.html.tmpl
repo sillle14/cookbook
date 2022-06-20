@@ -3,11 +3,16 @@
 <h1>
 	{{ .Recipe.Name }}
 </h1>
-<p>
-	<ol>
-	{{ .Recipe.Instructions | formatInstructions}}
-	</ol>
-</p>
+<h2>Ingredients</h2>
+<ul>
+	{{ .Recipe.Ingredients | formatList}}
+</ul>
+
+<h2>Instructions</h2>
+<ol>
+{{ .Recipe | boldIngredients | formatList}}
+</ol>
+
 <a href="/{{ .Recipe.Id | formatObjId}}/edit" class="button">Edit</a>
 {{ end }}
 
