@@ -14,6 +14,10 @@
 		<input type="text" name="name" id="name" value="{{ .Recipe.Name }}" required>
 	</div>
 	<div class="form-example">
+		<label for="source">Source: </label>
+		<input type="text" name="source" id="source" value="{{ .Recipe.Source }}" required>
+	</div>
+	<div class="form-example">
 		<label for="ingredients">Ingredients: </label>
 		<textarea name="ingredients" id="ingredients" cols="30" rows="20" required>{{ .Recipe.Ingredients }}</textarea>
 	</div>

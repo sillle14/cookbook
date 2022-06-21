@@ -12,6 +12,7 @@ import (
 
 var lb *regexp.Regexp = regexp.MustCompile(`[\r\n]+`)
 var ingRegexp *regexp.Regexp = regexp.MustCompile(`(?P<first>\d+\s\w+)\s\+\s(?P<second>\d+\s\w+)(\sof)?\s(?P<ing>\w+)`)
+var urlRegexp *regexp.Regexp = regexp.MustCompile(`https?://`)
 
 func formatObjId(objId primitive.ObjectID) string {
 	return objId.Hex()
@@ -49,12 +50,17 @@ func formatList(raw string) template.HTML {
 	return template.HTML(ret)
 }
 
+func isLink(text string) bool {
+	return urlRegexp.MatchString(text)
+}
+
 func CreateMyRender() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 	funcMap := template.FuncMap{
 		"formatObjId":     formatObjId,
 		"formatList":      formatList,
 		"boldIngredients": boldIngredients,
+		"isLink":          isLink,
 	}
 
 	layouts, err := filepath.Glob("./templates/*.html.tmpl")

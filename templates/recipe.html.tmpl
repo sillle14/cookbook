@@ -3,6 +3,11 @@
 <h1>
 	{{ .Recipe.Name }}
 </h1>
+{{ if .Recipe.Source | isLink }}
+	<a href="{{ .Recipe.Source }}">{{ .Recipe.Source }}</a>
+{{ else }}
+	<p>{{ .Recipe.Source }}</p>
+{{ end }}
 <h2>Ingredients</h2>
 <ul>
 	{{ .Recipe.Ingredients | formatList}}

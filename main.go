@@ -13,12 +13,8 @@ import (
 // - re organize
 // - better follow rest, all endpoints should be /recipes
 //    - maybe / redirects to /recipes?
-// - form and post endpoint
 // - super simple auth, ask for a password and then send a signed JWT in a cookie. Check on all, else redirect to `/login`
 // - figure out the log message about trust all proxies
-// - Home button
-// - content -> instructions
-// - name -> something else
 // - need css asset versioning to cache bust
 
 func main() {
