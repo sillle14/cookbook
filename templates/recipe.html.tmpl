@@ -18,6 +18,6 @@
 {{ .Recipe | boldIngredients | formatList}}
 </ol>
 
-<a href="/{{ .Recipe.Id | formatObjId}}/edit" class="button">Edit</a>
+<a href="/recipes/{{ .Recipe.Id | formatObjId}}/edit" class="button">Edit</a>
 {{ end }}
 

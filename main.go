@@ -11,11 +11,13 @@ import (
 
 // TODO:
 // - re organize
-// - better follow rest, all endpoints should be /recipes
-//    - maybe / redirects to /recipes?
+// - add about
 // - super simple auth, ask for a password and then send a signed JWT in a cookie. Check on all, else redirect to `/login`
 // - figure out the log message about trust all proxies
-// - need css asset versioning to cache bust
+// - search functionality
+// - need css asset versioning to cache bust (or tie to heroku version somehow?)
+// - make it pretty
+// - tags
 
 func main() {
 
@@ -27,7 +29,12 @@ func main() {
 	router.HTMLRender = CreateMyRender()
 
 	router.Static("/assets", "./assets")
+
 	router.GET("/", func(ctx *gin.Context) {
+		ctx.Redirect(http.StatusFound, "/recipes")
+	})
+
+	router.GET("/recipes", func(ctx *gin.Context) {
 		opts := options.Find().SetProjection(bson.D{{Key: "name", Value: 1}})
 		opts.SetLimit(100)
 		cursor, err := RecipesCollection.Find(ctx.Request.Context(), bson.D{}, opts)
@@ -41,15 +48,14 @@ func main() {
 			return
 		}
 
-		// TODO: This means that new recipes show in the index when added.
-		// TODO: How to just add this header after a new one is added?
+		// Ensure new recipes appear in the index.
 		ctx.Header("Cache-Control", "no-cache, must-revalidate, no-store")
 		ctx.HTML(http.StatusOK, "index", gin.H{
 			"Recipes": recipes,
 		})
 	})
 
-	router.GET("/:id", func(ctx *gin.Context) {
+	router.GET("/recipes/:id", func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		objId, err := primitive.ObjectIDFromHex(id)
 		if err != nil {
@@ -68,7 +74,7 @@ func main() {
 		})
 	})
 
-	router.GET("/new", func(ctx *gin.Context) {
+	router.GET("/recipes/new", func(ctx *gin.Context) {
 		ctx.HTML(http.StatusOK, "form", gin.H{
 			"Title": "New Recipe",
 		})
@@ -86,10 +92,10 @@ func main() {
 			ctx.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
-		ctx.Redirect(http.StatusFound, "/" + res.InsertedID.(primitive.ObjectID).Hex())
+		ctx.Redirect(http.StatusFound, "/recipes/" + res.InsertedID.(primitive.ObjectID).Hex())
 	})
 
-	router.GET("/:id/edit", func(ctx *gin.Context) {
+	router.GET("/recipes/:id/edit", func(ctx *gin.Context) {
 		id := ctx.Param("id")
 		objId, err := primitive.ObjectIDFromHex(id)
 		if err != nil {
@@ -128,7 +134,7 @@ func main() {
 			ctx.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
-		ctx.Redirect(http.StatusFound, "/" + id)
+		ctx.Redirect(http.StatusFound, "/recipes/" + id)
 	})
 
 	router.Run()

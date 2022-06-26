@@ -6,11 +6,11 @@
 
 <ul>
 {{range .Recipes}}
-	<li><a href="{{ .Id | formatObjId}}">{{ .Name}}</a></li>
+	<li><a href="/recipes/{{ .Id | formatObjId}}">{{ .Name}}</a></li>
 {{end}}
 </ul>
 
-<a href="/new" class="button">Add a Recipe</a>
+<a href="/recipes/new" class="button">Add a Recipe</a>
 
 {{ end }}
 

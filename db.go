@@ -15,8 +15,8 @@ var Client *mongo.Client
 var RecipesCollection *mongo.Collection
 
 func ConnectDB() {
-	db_uri := os.Getenv("DB_URI")
-	if db_uri == "" {
+	db_uri, ok := os.LookupEnv("DB_URI")
+	if !ok {
 		db_uri = "mongodb://localhost:27017/soups-up"
 	}
 	client, err := mongo.NewClient(options.Client().ApplyURI(db_uri))
@@ -24,7 +24,7 @@ func ConnectDB() {
 		log.Fatal(err)
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second) // TODO: Length?
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	err = client.Connect(ctx)
 	if err != nil {
