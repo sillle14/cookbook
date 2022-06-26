@@ -1,4 +1,4 @@
-package main
+package setup
 
 import (
 	"html/template"
@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-contrib/multitemplate"
+	"github.com/sillle14/soups-up/recipe"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -18,7 +19,7 @@ func formatObjId(objId primitive.ObjectID) string {
 	return objId.Hex()
 }
 
-func boldIngredients(recipe Recipe) string {
+func boldIngredients(recipe recipe.Recipe) string {
 	ingredients := lb.Split(recipe.Ingredients, -1)
 	instructions := recipe.Instructions
 	for _, ingredient := range ingredients {

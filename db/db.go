@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"context"
@@ -10,9 +10,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var Client *mongo.Client
-
 var RecipesCollection *mongo.Collection
+
+var Test string
 
 func ConnectDB() {
 	db_uri, ok := os.LookupEnv("DB_URI")
@@ -36,6 +36,5 @@ func ConnectDB() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Client = client
-	RecipesCollection = Client.Database("soups-up").Collection("recipes")
+	RecipesCollection = client.Database("soups-up").Collection("recipes")
 }
