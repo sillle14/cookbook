@@ -34,6 +34,10 @@ func main() {
 		ctx.Redirect(http.StatusFound, "/recipes")
 	})
 
+	router.GET("/about", func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "about", gin.H{})
+	})
+
 	router.GET("/recipes", func(ctx *gin.Context) {
 		opts := options.Find().SetProjection(bson.D{{Key: "name", Value: 1}})
 		opts.SetLimit(100)
