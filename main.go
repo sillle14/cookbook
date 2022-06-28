@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sillle14/soups-up/auth"
 	"github.com/sillle14/soups-up/db"
 	"github.com/sillle14/soups-up/recipe"
 	"github.com/sillle14/soups-up/setup"
@@ -32,6 +33,7 @@ func main() {
 	})
 
 	recipe.AddRecipeRoutes(router)
+	auth.AddAuthRoutes(router)
 
 	router.Run()
 }
