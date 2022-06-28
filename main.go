@@ -11,8 +11,6 @@ import (
 )
 
 // TODO:
-// - super simple auth, ask for a password and then send a signed JWT in a cookie. Check on all, else redirect to `/login`
-// - figure out the log message about trust all proxies
 // - search functionality
 // - need css asset versioning to cache bust (or tie to heroku version somehow?)
 // - make it pretty

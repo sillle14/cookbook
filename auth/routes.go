@@ -15,6 +15,7 @@ type Password struct {
 }
 
 func loginForm(ctx *gin.Context) {
+	// TODO: Go home if logged in?
 	_, failed := ctx.GetQuery("failed")
 	ctx.HTML(http.StatusOK, "login", gin.H{"Failed": failed})
 }

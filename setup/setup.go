@@ -8,5 +8,6 @@ func InitRouter() *gin.Engine {
 	router := gin.Default()
 	router.HTMLRender = CreateMyRender()
 	router.Static("/assets", "./assets")
+	router.SetTrustedProxies(nil)
 	return router
 }
