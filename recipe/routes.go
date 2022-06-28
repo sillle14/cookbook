@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sillle14/soups-up/auth"
 	"github.com/sillle14/soups-up/db"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -116,10 +117,11 @@ func edit(ctx *gin.Context) {
 }
 
 func AddRecipeRoutes(router *gin.Engine) {
-	router.GET("/recipes", index)
-	router.GET("/recipes/:id", single)
-	router.GET("/recipes/new", newForm)
-	router.POST("/recipes", new)
-	router.GET("/recipes/:id/edit", editForm)
-	router.POST("/recipes/:id", edit)
+	recipes := router.Group("/recipes", auth.Middleware)
+	recipes.GET("/", index)
+	recipes.GET("/:id", single)
+	recipes.GET("/new", newForm)
+	recipes.POST("/", new)
+	recipes.GET("/:id/edit", editForm)
+	recipes.POST("/:id", edit)
 }
