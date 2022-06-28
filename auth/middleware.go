@@ -19,6 +19,8 @@ func Middleware(ctx *gin.Context) {
 	cookie, err := ctx.Cookie("session")
         if err != nil {
 		ctx.Redirect(http.StatusFound, "/login")
+		ctx.Abort()
+		return
         }
 	
 	token, err := jwt.Parse(cookie, getJWTKey)
@@ -26,5 +28,6 @@ func Middleware(ctx *gin.Context) {
 		ctx.Next()
 	} else {
 		ctx.Redirect(http.StatusFound, "/login")
+		ctx.Abort()
 	}
 }
