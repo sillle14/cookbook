@@ -1,7 +1,11 @@
 {{ define "title"}}<title>Login</title>{{ end }}
 {{ define "content" }}
 <h1>
+{{ if .Failed }}
+    Invalid Password
+{{ else }}
 	Login
+{{ end }}
 </h1>
 
 <form action="/login" method="post" class="form-example">

@@ -11,7 +11,6 @@ import (
 )
 
 // TODO:
-// - re organize
 // - super simple auth, ask for a password and then send a signed JWT in a cookie. Check on all, else redirect to `/login`
 // - figure out the log message about trust all proxies
 // - search functionality
