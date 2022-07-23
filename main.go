@@ -11,8 +11,11 @@ import (
 )
 
 // TODO:
+// - Go home (from login) if logged in
+// - use https://github.com/unrolled/secure to send to https all the time
+// - add recipes and tweak bolding logic
 // - search functionality
-// - need css asset versioning to cache bust (or tie to heroku version somehow?)
+// - need css asset versioning to cache bust
 // - make it pretty
 // - tags
 
