@@ -6,7 +6,6 @@ require (
 	github.com/gin-contrib/multitemplate v0.0.0-20220606235416-8e12065b5cb8
 	github.com/gin-gonic/gin v1.8.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/unrolled/secure v1.12.0
 	go.mongodb.org/mongo-driver v1.9.1
 )
 
